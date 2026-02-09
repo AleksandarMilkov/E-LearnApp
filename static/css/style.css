@@ -1,0 +1,118 @@
+:root {
+  --bg: #FAFAFA;
+  --text: #2E2E2E;
+  --accent: #3A5A40;
+  --card-bg: #FFFFFF;
+  --border: #E0E0E0;
+  --hover-bg: #F2F2F2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+nav a, nav form button {
+  margin-left: 1.2rem;
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--text);
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+nav a:hover, nav form button:hover {
+  color: var(--accent);
+}
+
+/* Search Bar */
+.search-box {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.search-box input[type="text"] {
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--border);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  flex: 1;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.search-box button {
+  padding: 0.7rem 1.2rem;
+  border: 1px solid var(--border);
+  background-color: var(--accent);
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-box button:hover {
+  background-color: #2E2E2E;
+}
+
+/* Course Cards */
+.suggested-courses h2 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.course-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  transition: box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.course-card h3 {
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.course-card p {
+  font-size: 0.95rem;
+  color: #555;
+}

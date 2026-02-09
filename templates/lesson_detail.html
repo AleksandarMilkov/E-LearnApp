@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ lesson.title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Simple Navbar -->
+    <nav class="bg-white shadow px-6 py-4 flex justify-between items-center">
+        <a href="{% url 'home' %}" class="text-xl font-semibold text-indigo-600">eLearnApp</a>
+        <div class="space-x-4">
+            <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-indigo-600">Dashboard</a>
+            <a href="{% url 'logout' %}" class="text-gray-700 hover:text-red-500">Logout</a>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto mt-8 bg-white rounded-xl shadow p-6">
+        <h1 class="text-3xl font-bold text-indigo-600 mb-4">{{ lesson.title }}</h1>
+
+        {% if can_edit %}
+            <!-- Edit Form for Teachers -->
+            <form method="post" enctype="multipart/form-data" class="space-y-4">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Content</label>
+                    <textarea name="content" rows="6" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2">{{ lesson.content }}</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Upload Video</label>
+                    <input type="file" name="video" accept="video/*" class="mt-1 block w-full" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Upload PDF</label>
+                    <input type="file" name="pdf" class="mt-1" />
+                </div>
+
+                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Save Changes</button>
+            </form>
+        {% else %}
+            <!-- Lesson Content -->
+            <div class="prose max-w-none mb-6">
+                {{ lesson.content|linebreaks }}
+            </div>
+
+            <!-- Video Embed -->
+            {% if lesson.video %}
+              <video controls class="w-full mt-4 rounded-md">
+                <source src="{{ lesson.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            {% endif %}
+
+            <!-- PDF Viewer -->
+            {% if lesson.pdf %}
+                <div class="mb-4">
+                    <a href="{{ lesson.pdf.url }}" target="_blank" class="text-indigo-600 underline hover:text-indigo-800">
+                        📄 View PDF
+                    </a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+</body>
+</html>

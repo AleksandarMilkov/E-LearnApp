@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Lessons for {{ course.title }}</title>
-</head>
-<body>
-    <h2>Lessons in {{ course.title }}</h2>
+{% extends "base.html" %}
 
-    <ul>
+{% block content %}
+<div class="max-w-5xl mx-auto py-12 px-4">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Lessons</h2>
+    <ul class="divide-y divide-gray-200">
         {% for lesson in lessons %}
-            <li>{{ lesson.title }} - <a href="{% url 'lesson_detail' lesson.id %}">View</a></li>
+        <li class="py-4">
+            <h3 class="text-lg font-semibold">{{ lesson.title }}</h3>
+            <p class="text-gray-600">{{ lesson.content|truncatewords:30 }}</p>
+        </li>
         {% empty %}
-            <p>No lessons available.</p>
+        <p>No lessons found.</p>
         {% endfor %}
     </ul>
-    
-
-    {% if request.user == course.teacher %}
-        <a href="{% url 'create_lesson' course.id %}">Add New Lesson</a>
-    {% endif %}
-
-    <a href="{% url 'course_detail' course.id %}">Back to Course</a>
-</body>
-</html>
+</div>
+{% endblock %}

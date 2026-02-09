@@ -1,17 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Courses</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Available Courses</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h2>Available Courses</h2>
-    <ul>
-        {% for course in courses %}
-        <li>
-            <a href="{% url 'course_detail' course.id %}">{{ course.title }}</a> - {{ course.teacher.username }}
-        </li>
-    {% endfor %}
-    </ul>
-    <a href="{% url 'create_course' %}">Create a Course</a>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- Header -->
+  <nav class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <a href="{% url 'home' %}" class="text-2xl font-bold text-indigo-600">LearnSphere</a>
+
+        <div class="hidden md:flex space-x-6">
+          <a href="{% url 'home' %}" class="text-gray-700 hover:text-indigo-600">Home</a>
+          <a href="{% url 'course_list' %}" class="text-gray-700 hover:text-indigo-600">Courses</a>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-4">
+          {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="text-sm text-gray-700 hover:text-indigo-600">My Profile</a>
+
+            {% if user.role == 'teacher' %}
+              <a href="{% url 'create_course' %}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 font-bold">Create Course</a>
+            {% endif %}
+
+            <a href="{% url 'logout' %}" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="text-sm text-indigo-600 hover:underline">Login</a>
+            <a href="{% url 'register' %}" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Register</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center text-indigo-700 mb-10">Most Popular Courses</h2>
+
+      {% if popular_courses %}
+        <div class="grid md:grid-cols-3 gap-8">
+          {% for course in popular_courses %}
+            <a href="{% url 'course_detail' course.id %}" class="block bg-white rounded-lg shadow feature-card p-4 hover:no-underline">
+              {% if course.image %}
+                <img src="{{ course.image.url }}" alt="{{ course.title }}" class="rounded mb-4 w-full h-40 object-cover" style="
+                        object-fit: scale-down; />
+              {% else %}
+                <img src="https://source.unsplash.com/600x300/?{{ course.title|urlencode }}" alt="Course" class="rounded mb-4 w-full h-40 object-cover" />
+              {% endif %}
+
+              <h3 class="text-xl font-semibold text-gray-900">{{ course.title }}</h3>
+              <p class="text-sm text-gray-600 mt-2 line-clamp-3">{{ course.description }}</p>
+
+              <div class="mt-4 flex items-center text-sm text-gray-500">
+                <svg class="w-5 h-5 mr-1 text-indigo-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+                </svg>
+                {{ course.students.count }} enrolled
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-center text-gray-500">No courses available yet. Check back soon!</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-8">Available Courses</h2>
+    <!-- Search Form -->
+    <form method="get" action="" class="mb-10">
+      <div class="flex items-center gap-2">
+        <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search courses..."
+               class="w-full md:w-1/2 border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        <button type="submit"
+                class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+          Search
+        </button>
+      </div>
+    </form>
+    {% if courses %}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {% for course in courses %}
+      <div class="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-gray-800">{{ course.title }}</h3>
+        <p class="text-gray-600 mt-2">{{ course.description|truncatewords:20 }}</p>
+        <a href="{% url 'course_detail' course.id %}" class="text-indigo-600 font-medium mt-4 inline-block">View Details →</a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-gray-600">No courses available at the moment.</p>
+    {% endif %}
+  </main>
+  
+  <!-- Footer -->
+  <footer class="bg-gray-100 text-center py-6 mt-12">
+    <p class="text-sm text-gray-500">&copy; 2025 eLearn. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>

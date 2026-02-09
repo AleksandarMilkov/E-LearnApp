@@ -1,15 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Create Lesson</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Lesson</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h2>Add a Lesson to {{ course.title }}</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create Lesson</button>
-    </form>
-    <a href="{% url 'lesson_list' course.id %}">Back to Lessons</a>
+<body class="bg-gray-100 text-gray-900">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow mb-8">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{% url 'home' %}" class="text-2xl font-bold text-indigo-600">LearnSphere</a>
+            <div>
+                <a href="{% url 'dashboard' %}" class="text-gray-700 hover:text-indigo-600 mr-4">Dashboard</a>
+                <a href="{% url 'logout' %}" class="text-white bg-indigo-600 px-4 py-2 rounded hover:bg-indigo-700">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <div class="max-w-lg mx-auto py-12 px-4">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Create a New Lesson</h2>
+        <form method="post" class="space-y-4 bg-white p-6 rounded-xl shadow-md">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Create</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-sm text-gray-500 py-6 mt-12">
+        &copy; 2025 LearnSphere. All rights reserved.
+    </footer>
+
 </body>
 </html>
