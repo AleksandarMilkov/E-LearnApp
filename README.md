@@ -1,8 +1,8 @@
-# E-LearnApp
+# E-Learn-App
 
 [![Python](https://img.shields.io/badge/Python-3.x-blue)](https://www.python.org/) [![Django](https://img.shields.io/badge/Django-5.1.7-green)](https://www.djangoproject.com/) [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
-E-LearnApp is a Django-based eLearning platform that allows users to browse courses, enroll, and complete quizzes. It supports user authentication, role-based access, and media management for course content and avatars.
+E-Learn-App is a Django-based eLearning platform that allows users to browse courses, enroll, and complete quizzes. It supports user authentication, role-based access, and media management for course content and avatars.
 
 Features:
 - User registration and login
@@ -20,7 +20,7 @@ Technologies:
 - python-dotenv (environment variables)
 
 Setup Instructions:
-1. Clone the repository: git clone https://github.com/AleksandarMilkov/E-LearnApp && cd E-LearnApp
+1. Clone the repository: git clone https://github.com/AleksandarMilkov/e-learn-app && cd e-learn-app
 2. Create a virtual environment: python -m venv .venv
 3. Activate it: 
    - PowerShell: .venv\Scripts\Activate.ps1
